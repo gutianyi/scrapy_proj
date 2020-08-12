@@ -21,13 +21,37 @@
 #     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 #               佛祖保佑         永无BUG
-#!/usr/bin/env python
+#!/usr/bin/env python 
 # -*- coding: utf-8 -*-
-# @Time    : 1/8/2020 11:23 上午
+# @Time    : 12/8/2020 9:15 下午
 # @Author  : GU Tianyi
-# @File    : main.py
+# @File    : model.py
+import scrapy
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, create_engine, Text, DateTime, Integer, String
 
-from scrapy import cmdline
-# flag=1是增量爬取
+class ZongyiItem(scrapy.Item):
+    title = scrapy.Field()
+    desc = scrapy.Field()
+    times = scrapy.Field()
+    page = scrapy.Field()
 
-cmdline.execute('scrapy crawl sina -a page=20 -a flag=0'.split())
+class GuoneiItem(scrapy.Item):
+    title = scrapy.Field()
+    desc = scrapy.Field()
+    times = scrapy.Field()
+    page = scrapy.Field()
+
+class DianyingItem(scrapy.Item):
+    title = scrapy.Field()
+    desc = scrapy.Field()
+    times = scrapy.Field()
+    page = scrapy.Field()
+
+
+class DataItem(scrapy.Item):
+    title = scrapy.Field()
+    desc = scrapy.Field()
+    times = scrapy.Field()
+    page = scrapy.Field()
+    type = scrapy.Field()
