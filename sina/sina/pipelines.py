@@ -25,7 +25,7 @@ class SinaPipeline:
     def __init__(self):
         self.file = None
 
-        self.engine = create_engine('mysql+pymysql://root:gty082210@localhost:3306/sina', encoding="utf-8", pool_size=10,
+        self.engine = create_engine('mysql+pymysql://root:gty123456@localhost:3306/sina', encoding="utf-8", pool_size=10,
                                 max_overflow=-1, pool_recycle=1200)
         Base.metadata.create_all(self.engine)
         self.DBSession = sessionmaker(bind=self.engine)

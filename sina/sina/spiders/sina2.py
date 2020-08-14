@@ -118,6 +118,7 @@ class Sina2Spider(scrapy.Spider):
                 else:
                     yield Request(url=response.urljoin(href), meta={'name':item},callback=self.parse_namedetail)
 
+            #跳出while 找到下一页标签
             try:
                 driver.find_element_by_xpath("//div[@class='feed-card-page']/span[@class='pagebox_next']/a").click()
             except:
