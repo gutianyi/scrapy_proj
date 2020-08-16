@@ -1,4 +1,3 @@
-#               -*- coding: utf-8 -*-
 #                       _oo0oo_
 #                      o8888888o
 #                      88" . "88
@@ -18,7 +17,7 @@
 #     =====`-.____`.___ \_____/___.-`___.-'=====
 #                       `=---='
 #
-#
+#                -*- coding: utf-8 -*-
 #     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 #               佛祖保佑         永无BUG
@@ -28,11 +27,13 @@
 # @File    : sina2.py
 import re
 import datetime
+from time import sleep
 
 import scrapy
 from scrapy import Request
 from scrapy.selector import Selector
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 from ..models.model import DataItem
 
@@ -49,12 +50,13 @@ class Sina2Spider(scrapy.Spider):
         self.page = int(page)
         self.flag = int(flag)
         self.start_urls = [
-                            'https://ent.sina.com.cn/film/',
-                            'https://ent.sina.com.cn/zongyi/',
+                            # 'https://ent.sina.com.cn/film/',
+                            # 'https://ent.sina.com.cn/zongyi/',
                            'https://news.sina.com.cn/china/',
                            # 'https://fashion.sina.com.cn/'
                            ]
-        self.option = webdriver.ChromeOptions()
+        # self.option = webdriver.ChromeOptions()
+        self.option = Options()
         self.option.add_argument('headless')
         self.option.add_argument('no-sandbox')
         self.option.add_argument('--blink-setting=imagesEnabled=false')
@@ -67,7 +69,21 @@ class Sina2Spider(scrapy.Spider):
         driver = webdriver.Chrome(chrome_options=self.option)
         driver.set_page_load_timeout(60)
         driver.get(response.url)
+
+        js = "document.getElementsByClassName(\"feed-card-page\")[0].style.display='block';"
+        # 调用js脚本
+        driver.execute_script(js)
+        sleep(3)
+
+        page = driver.page_source
+        # 打印源码，防止乱码加上编码格式；
+        # print(page.encode("utf-8"))
+        with open("html.txt", "wb") as f:
+            f.write(page.encode("utf-8"))
+
         for page in range(self.page):
+            x = driver.find_element_by_xpath("//div[@class='feed-card-page']")
+            y = x.text
             while not driver.find_element_by_xpath("//div[@class='feed-card-page']").text:
                 driver.execute_script("window.scrollTo(0,document.body.scrollHeight);")
             title = driver.find_elements_by_xpath("//h2[@class='undefined']/a[@target='_blank']")
