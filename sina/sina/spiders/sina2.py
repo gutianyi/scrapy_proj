@@ -1,3 +1,4 @@
+#               -*- coding: utf-8 -*-
 #                       _oo0oo_
 #                      o8888888o
 #                      88" . "88
@@ -22,7 +23,6 @@
 #
 #               佛祖保佑         永无BUG
 # !/usr/bin/env python
-# -*- coding: utf-8 -*-
 # @Time    : 1/8/2020 10:40 上午
 # @Author  : GU Tianyi
 # @File    : sina2.py
