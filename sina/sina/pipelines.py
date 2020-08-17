@@ -9,7 +9,7 @@ import csv
 
 from itemadapter import ItemAdapter
 from sqlalchemy import Column, create_engine, Text, DateTime, Integer, String
-from sqlalchemy.orm import  sessionmaker
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
